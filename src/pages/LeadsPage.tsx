@@ -3,7 +3,7 @@ import { FiltrosLead, Lead } from '@/lib/types';
 
 export default function LeadsPage() {
   const [filtros, setFiltros] = useState<FiltrosLead>({});
-  const [leads, setLeads] = useState<Lead[]>([
+  const [leads, _setLeads] = useState<Lead[]>([
     {
       id: '1',
       tipoCliente: 'PF',

@@ -498,3 +498,4 @@ input, textarea, select {
     border: 2px solid var(--color-white);
     border-radius: var(--radius-full);
     animation: pulse 2s infinite;
+}
