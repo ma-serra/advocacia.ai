@@ -2,6 +2,28 @@
 
 Landing page completa para captação de leads jurídicos com Inteligência Artificial integrada.
 
+## ⚡ INÍCIO RÁPIDO
+
+Este projeto está **pronto para instalar e usar**! Siga os passos abaixo:
+
+```bash
+# 1. Clone o repositório
+git clone https://github.com/ma-serra/advocacia.ai.git
+cd advocacia.ai
+
+# 2. Instale as dependências
+npm install
+
+# 3. Inicie o servidor de desenvolvimento
+npm run dev
+```
+
+O site estará disponível em: **http://localhost:5173**
+
+📖 **Para instruções detalhadas de instalação, veja [INSTALL.md](./INSTALL.md)**
+
+---
+
 ## 📋 ÍNDICE
 
 - [Visão Geral](#visão-geral)
@@ -62,95 +84,60 @@ Landing page otimizada para conversão que conecta clientes a advogados usando I
 ## 📁 ESTRUTURA DO PROJETO
 
 ```
-advocacia-ai-landing/
-├── index.html              # Página principal
-├── css/
-│   └── style.css          # Estilos completos (responsivo)
-├── js/
-│   ├── app.js             # Lógica principal (formulário, validações)
-│   ├── eva.js             # Reconhecimento de voz e IA
-│   └── analytics.js       # Google Analytics, Ads, Facebook Pixel
-├── assets/
-│   └── images/            # Imagens (logos, placeholders)
-└── README.md              # Este arquivo
+advocacia.ai/
+├── src/                          # Código fonte
+│   ├── components/               # Componentes React
+│   ├── pages/                    # Páginas da aplicação
+│   ├── contexts/                 # Contextos React
+│   ├── hooks/                    # Hooks customizados
+│   ├── lib/                      # Utilitários e helpers
+│   ├── App.tsx                   # Componente principal
+│   ├── main.tsx                  # Ponto de entrada
+│   └── index.css                 # Estilos globais
+├── public/                       # Arquivos estáticos
+├── index.html                    # HTML principal
+├── package.json                  # Dependências
+├── tsconfig.json                 # Configuração TypeScript
+├── vite.config.ts                # Configuração Vite
+├── INSTALL.md                    # Guia de instalação detalhado
+└── README.md                     # Este arquivo
 ```
+
+**Nota:** Há também uma versão standalone em HTML/CSS/JS no arquivo `index-standalone.html` para uso sem build.
 
 ---
 
 ## 🔧 INSTALAÇÃO E CONFIGURAÇÃO
 
-### **Passo 1: Download dos Arquivos**
+### **Instalação Rápida**
 
-Baixe todos os arquivos e organize conforme a estrutura acima.
-
-### **Passo 2: Configurar API Backend**
-
-Edite `js/app.js` linha 12-15:
-
-```javascript
-const CONFIG = {
-    API_URL: 'https://api.advocacia.ai',        // Produção
-    API_LOCAL: 'http://localhost:8000',         // Desenvolvimento
-    USE_LOCAL: window.location.hostname === 'localhost',
-    OPENAI_ENDPOINT: '/api/leads/',             // Seu endpoint FastAPI
-    // ...
-};
+```bash
+npm install
+npm run dev
 ```
 
-### **Passo 3: Configurar Analytics**
+Para instruções detalhadas de instalação, veja **[INSTALL.md](./INSTALL.md)**.
 
-#### **Google Analytics 4**
+### **Scripts Disponíveis**
 
-Edite `index.html` linha 44:
-```html
-<script>
-  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-  })(window,document,'script','dataLayer','GTM-XXXXXXX'); // ← Altere aqui
-</script>
-```
+- `npm run dev` - Inicia servidor de desenvolvimento
+- `npm run build` - Cria build de produção  
+- `npm run preview` - Preview do build de produção
+- `npm test` - Executa testes
+- `npm run type-check` - Verifica tipos TypeScript
 
-Edite `js/analytics.js` linha 9:
-```javascript
-const ANALYTICS_CONFIG = {
-    GA4_ID: 'G-XXXXXXXXXX',      // ← Seu ID Google Analytics 4
-    GOOGLE_ADS_ID: 'AW-XXXXXXXXX', // ← Seu ID Google Ads
-    FB_PIXEL_ID: 'YOUR_PIXEL_ID',  // ← Seu ID Facebook Pixel
-    // ...
-};
-```
+### **Configuração de Variáveis de Ambiente (Opcional)**
 
-#### **Facebook Pixel**
+Crie um arquivo `.env` na raiz do projeto:
 
-Edite `index.html` linha 57:
-```html
-fbq('init', 'YOUR_PIXEL_ID'); // ← Seu Pixel ID aqui
-```
+```env
+# API Backend
+VITE_API_URL=https://api.advocacia.ai
 
-#### **Google Ads Conversion**
-
-Edite `js/app.js` linha 636:
-```javascript
-gtag('event', 'conversion', {
-    'send_to': 'AW-XXXXXXXX/XXXXXX', // ← Seu Conversion ID
-    'value': 1.0,
-    'currency': 'BRL'
-});
-```
-
-### **Passo 4: Configurar WhatsApp**
-
-Edite `js/app.js` linha 19:
-```javascript
-WHATSAPP_NUMBER: '5511999999999', // ← Seu número com DDI+DDD
-```
-
-Edite `index.html` (buscar por `wa.me`):
-```html
-<a href="https://wa.me/5511999999999?text=Olá!%20Vim%20do%20site" 
-   class="whatsapp-float">
+# Analytics (opcional)
+VITE_GA4_ID=G-XXXXXXXXXX
+VITE_GOOGLE_ADS_ID=AW-XXXXXXXXX
+VITE_FB_PIXEL_ID=YOUR_PIXEL_ID
 ```
 
 ---
@@ -313,145 +300,96 @@ Para garantir Lighthouse 90+:
 
 ## 🚀 DEPLOY
 
-### **Opção 1: Vercel (Recomendado - Gratuito)**
+### **Build para Produção**
 
-1. Instalar Vercel CLI:
-   ```bash
-   npm install -g vercel
-   ```
-
-2. Deploy:
-   ```bash
-   cd advocacia-ai-landing
-   vercel --prod
-   ```
-
-3. Configurar domínio customizado no dashboard Vercel
-
-### **Opção 2: Netlify (Gratuito)**
-
-1. Criar conta em [netlify.com](https://netlify.com)
-2. Arrastar pasta do projeto
-3. Configurar domínio customizado
-
-### **Opção 3: GitHub Pages (Gratuito)**
-
-1. Criar repositório `username.github.io`
-2. Push dos arquivos
-3. Habilitar GitHub Pages em Settings
-
-### **Opção 4: Servidor Próprio (cPanel/VPS)**
-
-1. Upload via FTP/SFTP
-2. Configurar SSL (Let's Encrypt gratuito)
-3. Apontar domínio para IP do servidor
-
----
-
-## 🔐 CONFIGURAÇÕES DE SEGURANÇA
-
-### **1. SSL/HTTPS (Obrigatório)**
-
-Todas as opções acima oferecem SSL gratuito.
-
-Se servidor próprio:
 ```bash
-# Certbot (Let's Encrypt)
-sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d advocacia.ai -d www.advocacia.ai
+npm run build
 ```
 
-### **2. Content Security Policy (CSP)**
+Os arquivos otimizados serão gerados na pasta `dist/`.
 
-Adicionar no `<head>`:
-```html
-<meta http-equiv="Content-Security-Policy" 
-      content="default-src 'self'; 
-               script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; 
-               style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-               img-src 'self' data: https:;">
+### **Opções de Deploy**
+
+#### **Vercel (Recomendado - Gratuito)**
+```bash
+npm install -g vercel
+vercel --prod
 ```
 
-### **3. Proteção contra XSS**
+#### **Netlify (Gratuito)**
+1. Conecte seu repositório GitHub em [netlify.com](https://netlify.com)
+2. Configure:
+   - Build command: `npm run build`
+   - Publish directory: `dist`
 
-Já implementado no JavaScript (validação de inputs).
+#### **Servidor Próprio**
+1. Faça o build: `npm run build`
+2. Copie a pasta `dist/` para seu servidor web
+3. Configure redirecionamento de rotas para `index.html` (SPA)
+
+**Exemplo Nginx:**
+```nginx
+server {
+    listen 80;
+    server_name advocacia.ai;
+    root /var/www/advocacia.ai/dist;
+    
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
+```
+
+Para mais opções de deploy, veja [INSTALL.md](./INSTALL.md).
 
 ---
 
 ## 🧪 TESTES
 
-### **1. Teste Local**
+### **Executar Testes**
 
 ```bash
-# Servidor HTTP simples (Python)
-python3 -m http.server 8000
-
-# ou (Node.js)
-npx http-server -p 8000
-
-# Acessar: http://localhost:8000
+npm test              # Executa todos os testes
+npm run test:watch    # Modo watch para desenvolvimento
 ```
 
-### **2. Teste de Performance**
+### **Testes Incluídos**
 
-- [PageSpeed Insights](https://pagespeed.web.dev/)
-- [GTmetrix](https://gtmetrix.com/)
-- [WebPageTest](https://www.webpagetest.org/)
+- ✅ Validações (CPF, CNPJ, email, telefone)
+- ✅ Tipos TypeScript
+- ✅ Funcionalidades do blog
+- ✅ Utilitários CNPJ
 
-**Meta: Score 90+ no mobile**
+**39 testes passando com sucesso!**
 
-### **3. Teste de Compatibilidade**
+### **Testar Localmente**
 
-- Chrome DevTools (Device Mode)
-- [BrowserStack](https://www.browserstack.com/)
-- Testar em: Chrome, Firefox, Safari, Edge
-
-### **4. Teste de Conversão**
-
-1. Google Analytics → Tempo Real
-2. Preencher formulário
-3. Verificar evento `lead_submit`
+```bash
+npm run dev          # http://localhost:5173
+npm run preview      # Preview do build de produção
+```
 
 ---
 
 ## ❓ TROUBLESHOOTING
 
-### **Problema: Formulário não envia**
+Para problemas comuns de instalação e configuração, consulte o [INSTALL.md](./INSTALL.md).
 
-**Solução:**
-1. Abrir Console (F12)
-2. Verificar erros JavaScript
-3. Confirmar que `CONFIG.API_URL` está correto
-4. Testar endpoint manualmente:
-   ```bash
-   curl -X POST https://api.advocacia.ai/api/leads/ \
-        -H "Content-Type: application/json" \
-        -d '{"tipo_pessoa":"pf","nome_razao":"Teste",...}'
-   ```
+### **Problemas Comuns**
 
-### **Problema: Reconhecimento de voz não funciona**
+**Erro ao instalar dependências:**
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
 
-**Solução:**
-- Verificar navegador compatível (Chrome, Edge)
-- Permitir acesso ao microfone
-- Testar em HTTPS (obrigatório)
-- Safari iOS requer versão 14.5+
+**Porta já em uso:**
+Edite `vite.config.ts` e altere a porta em `server.port`.
 
-### **Problema: Analytics não rastreia**
-
-**Solução:**
-1. Verificar IDs em `js/analytics.js`
-2. Verificar GTM instalado corretamente
-3. Usar Google Tag Assistant
-4. Verificar AdBlockers desabilitados
-
-### **Problema: Performance baixa**
-
-**Solução:**
-1. Otimizar imagens (WebP, compressão)
-2. Minificar CSS/JS
-3. Habilitar cache e compressão no servidor
-4. Usar CDN
+**Erros de tipo TypeScript:**
+```bash
+npm run type-check
+```
 
 ---
 
@@ -459,9 +397,8 @@ npx http-server -p 8000
 
 Para dúvidas ou problemas:
 
-- **Email:** suporte@advocacia.ai
-- **WhatsApp:** (11) 99999-9999
-- **Documentação Backend:** Ver README do projeto backend
+- **Issues no GitHub:** [github.com/ma-serra/advocacia.ai/issues](https://github.com/ma-serra/advocacia.ai/issues)
+- **Documentação:** [INSTALL.md](./INSTALL.md) para instalação detalhada
 
 ---
 
@@ -469,20 +406,18 @@ Para dúvidas ou problemas:
 
 © 2024 Advocacia.AI. Todos os direitos reservados.
 
-Uso exclusivo para o projeto Advocacia.AI / RDM Advogados Associados.
-
 ---
 
-## 🎉 PRÓXIMOS PASSOS
+## 🎉 PRONTO PARA USAR!
 
-Após deploy:
+O projeto está completamente configurado e pronto para instalação e uso.
 
-1. ✅ Configurar domínio customizado
-2. ✅ Adicionar Google Search Console
-3. ✅ Criar sitemap.xml
-4. ✅ Configurar Google My Business
-5. ✅ Iniciar campanhas Google Ads
-6. ✅ Testar conversões end-to-end
-7. ✅ Monitorar Analytics diariamente
+**Começar agora:**
+```bash
+git clone https://github.com/ma-serra/advocacia.ai.git
+cd advocacia.ai
+npm install
+npm run dev
+```
 
 **Boa sorte com o lançamento! 🚀**

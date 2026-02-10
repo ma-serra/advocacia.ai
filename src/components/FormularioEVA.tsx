@@ -15,7 +15,7 @@ import { submitLead, fetchCEP, getCurrentLocation } from '@/lib/api';
 import { fetchCNPJ } from '@/lib/cnpj';
 
 export default function FormularioEVA() {
-  const { currentStep, formData, nextStep, prevStep, updateFormData, setCurrentStep } = useFormSteps();
+  const { currentStep, formData, nextStep, prevStep, updateFormData } = useFormSteps();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [recognition, setRecognition] = useState<any>(null);
